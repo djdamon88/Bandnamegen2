@@ -1,7 +1,7 @@
 
 import streamlit as st
 
-st.title("Hoe Simulator 💀")
+st.title("Hoe Simulator")
 st.write(
     "How goes it fellows\n\n"
     "Welcome to Hoe Simulator!\n\n"
