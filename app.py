@@ -1,78 +1,103 @@
 
 import streamlit as st
 
-st.title("Hoes Simulator 😂")
-
+st.title("Hoe Simulator 💀")
 st.write(
-    "Good Morning Lil Folks (or afternoon depending on how long this takes me)\n\n"
-    "Welcome to Hoes simulator to see if you can get hoes!"
+    "How goes it fellows\n\n"
+    "Welcome to Hoe Simulator!\n\n"
+    "To see if you can get Hoes!"
 )
 
-# Track game progress
-if "question2" not in st.session_state:
-    st.session_state.question2 = False
+# Initialize game state
+if "question" not in st.session_state:
+    st.session_state.question = 1
 
-if "finished" not in st.session_state:
-    st.session_state.finished = False
+if "result" not in st.session_state:
+    st.session_state.result = ""
+
+def restart_game():
+    st.session_state.question = 1
+    st.session_state.result = ""
 
 # Question 1
-st.header("First Question!")
+if st.session_state.question == 1:
+    st.subheader("First Question!")
+    st.write("You see the Hoes! What do you do?")
 
-q1 = st.radio(
-    "You see the Hoes! What do you do?",
-    [
-        "A: Tell them your name",
-        "B: Show them your bandz with your elite money spread",
-        "C: Keep walking"
-    ],
-    key="q1"
-)
-
-if st.button("Submit Answer 1"):
-
-    if q1.startswith("B"):
-        st.session_state.question2 = True
-        st.rerun()
-
-    elif q1.startswith("A"):
-        st.error(
-            "AHHHH scaring the hoes they don't care who you are\n\nTry Again!"
+    if st.button("A: Tell them your name"):
+        st.session_state.result = (
+            "AHHHH scaring the hoes they don't care who you are\n"
+            "Hoes Lost Try Again!"
         )
+        st.session_state.question = 4
 
-    elif q1.startswith("C"):
-        st.error(
-            "AHHH WRONG how u gon get the hoes???\n\nTry Again!"
+    if st.button("B: Show them your bandz with your elite money spread"):
+        st.session_state.result = "Good Job you know hoes love the flex!"
+        st.session_state.question = 2
+
+    if st.button("C: Keep walking"):
+        st.session_state.result = (
+            "AHHH WRONG how u gon get the hoes???\n"
+            "Hoes Lost Try Again!"
         )
+        st.session_state.question = 4
 
 # Question 2
-if st.session_state.question2 and not st.session_state.finished:
+elif st.session_state.question == 2:
+    st.subheader("Next Question!")
+    st.write("The hoes wanna do something. What should you take them to do?")
 
-    st.success("Good job!")
+    if st.button("A: Bowling"):
+        st.session_state.result = (
+            "Wrong answer you know hoes cant bowl\n"
+            "Hoes Lost Try Again!"
+        )
+        st.session_state.question = 4
 
-    st.header("Next Question!")
+    if st.button("B: Out to Eat"):
+        st.session_state.result = "Good job you know hoes love to eat"
+        st.session_state.question = 3
 
-    q2 = st.radio(
-        "The hoes wanna do something. What should you take them to do?",
-        [
-            "A: Bowling",
-            "B: Out to Eat",
-            "C: To your place"
-        ],
-        key="q2"
-    )
+    if st.button("C: To your place"):
+        st.session_state.result = (
+            "WOOOOAH definelty scaring the hoes\n"
+            "Hoes Lost Try Again!"
+        )
+        st.session_state.question = 4
 
-    if st.button("Submit Answer 2"):
+# Question 3
+elif st.session_state.question == 3:
+    st.subheader("Last Question!")
+    st.write("The Hoes wanna slide back to the crib! How do you bag the hoes?")
 
-        if q2.startswith("B"):
-            st.success("Good job you know hoes love to eat 😂")
-            st.session_state.finished = True
+    if st.button("A: Show them your card collection"):
+        st.session_state.result = (
+            "HOES SECURED this young fellow knows how to get hoes"
+        )
+        st.session_state.question = 4
 
-        elif q2.startswith("A"):
-            st.error(
-                "Wrong answer you know hoes cant bowl\n\nTry Again!"
-            )
+    if st.button("B: Whip it Out"):
+        st.session_state.result = (
+            "WHOOOOOAH definetley scaring the hoes\n"
+            "Hoes Lost Try again!"
+        )
+        st.session_state.question = 4
 
-        elif q2.startswith("C"):
-            st.error(
-                "WOOOOAH definitely scaring the hoes\n\nTry Again!"
-            )
+    if st.button("C: Watch a movie with them"):
+        st.session_state.result = (
+            "AHHHHH bored the hoes they left\n"
+            "Hoes Lost Try again!"
+        )
+        st.session_state.question = 4
+
+# Display result
+if st.session_state.result:
+    st.write(st.session_state.result)
+
+# Restart button
+if st.session_state.question == 4:
+    if st.button("Play Again 🔄"):
+        restart_game()
+
+        # Refresh the app
+        st.rerun()
