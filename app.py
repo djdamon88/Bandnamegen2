@@ -1,15 +1,66 @@
 
 import streamlit as st
 
-st.title("Tip Calculator")
+st.title("Hoes Simulator 😂")
 
-Cost = st.number_input("How much was your meal?", min_value=0.0, step=0.01)
+st.write(
+    "Good Morning Lil Folks (or afternoon depending on how long this takes me)\n\n"
+    "Welcome to Hoes simulator to see if you can get hoes!"
+)
 
-Percent = st.number_input("What percent do you want to leave?", min_value=0, max_value=100, value=15)
+st.header("First Question!")
 
-if st.button("Calculate Tip"):
-    Tip = Cost * (Percent / 100)
-    Total = Cost + Tip
+q1 = st.radio(
+    "You see the Hoes! What do you do?",
+    [
+        "A: Tell them your name",
+        "B: Show them your bandz with your elite money spread",
+        "C: Keep walking"
+    ],
+    key="q1"
+)
 
-    st.write(f"Tip amount: ${Tip:.2f}")
-    st.success(f"Total with tip: ${Total:.2f}")
+if st.button("Submit Answer 1"):
+    
+    if q1.startswith("B"):
+        st.success("Good job!")
+
+        st.header("Next Question!")
+
+        q2 = st.radio(
+            "The hoes wanna do something. What should you take them to do?",
+            [
+                "A: Bowling",
+                "B: Out to Eat",
+                "C: To your place"
+            ],
+            key="q2"
+        )
+
+        if st.button("Submit Answer 2"):
+            if q2.startswith("B"):
+                st.success("Good job you know hoes love to eat 😂")
+
+            elif q2.startswith("A"):
+                st.error(
+                    "Wrong answer you know hoes cant bowl\n\n"
+                    "Try Again!"
+                )
+
+            elif q2.startswith("C"):
+                st.error(
+                    "WOOOOAH definitely scaring the hoes\n\n"
+                    "Try Again!"
+                )
+
+    elif q1.startswith("A"):
+        st.error(
+            "AHHHH scaring the hoes they don't care who you are\n\n"
+            "Try Again!"
+        )
+
+    elif q1.startswith("C"):
+        st.error(
+            "AHHH WRONG how u gon get the hoes???\n\n"
+            "Try Again!"
+        )
