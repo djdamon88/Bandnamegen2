@@ -8,6 +8,14 @@ st.write(
     "Welcome to Hoes simulator to see if you can get hoes!"
 )
 
+# Track game progress
+if "question2" not in st.session_state:
+    st.session_state.question2 = False
+
+if "finished" not in st.session_state:
+    st.session_state.finished = False
+
+# Question 1
 st.header("First Question!")
 
 q1 = st.radio(
@@ -21,46 +29,50 @@ q1 = st.radio(
 )
 
 if st.button("Submit Answer 1"):
-    
+
     if q1.startswith("B"):
-        st.success("Good job!")
-
-        st.header("Next Question!")
-
-        q2 = st.radio(
-            "The hoes wanna do something. What should you take them to do?",
-            [
-                "A: Bowling",
-                "B: Out to Eat",
-                "C: To your place"
-            ],
-            key="q2"
-        )
-
-        if st.button("Submit Answer 2"):
-            if q2.startswith("B"):
-                st.success("Good job you know hoes love to eat 😂")
-
-            elif q2.startswith("A"):
-                st.error(
-                    "Wrong answer you know hoes cant bowl\n\n"
-                    "Try Again!"
-                )
-
-            elif q2.startswith("C"):
-                st.error(
-                    "WOOOOAH definitely scaring the hoes\n\n"
-                    "Try Again!"
-                )
+        st.session_state.question2 = True
+        st.rerun()
 
     elif q1.startswith("A"):
         st.error(
-            "AHHHH scaring the hoes they don't care who you are\n\n"
-            "Try Again!"
+            "AHHHH scaring the hoes they don't care who you are\n\nTry Again!"
         )
 
     elif q1.startswith("C"):
         st.error(
-            "AHHH WRONG how u gon get the hoes???\n\n"
-            "Try Again!"
+            "AHHH WRONG how u gon get the hoes???\n\nTry Again!"
         )
+
+# Question 2
+if st.session_state.question2 and not st.session_state.finished:
+
+    st.success("Good job!")
+
+    st.header("Next Question!")
+
+    q2 = st.radio(
+        "The hoes wanna do something. What should you take them to do?",
+        [
+            "A: Bowling",
+            "B: Out to Eat",
+            "C: To your place"
+        ],
+        key="q2"
+    )
+
+    if st.button("Submit Answer 2"):
+
+        if q2.startswith("B"):
+            st.success("Good job you know hoes love to eat 😂")
+            st.session_state.finished = True
+
+        elif q2.startswith("A"):
+            st.error(
+                "Wrong answer you know hoes cant bowl\n\nTry Again!"
+            )
+
+        elif q2.startswith("C"):
+            st.error(
+                "WOOOOAH definitely scaring the hoes\n\nTry Again!"
+            )
